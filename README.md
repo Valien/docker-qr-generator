@@ -19,6 +19,6 @@ Ever want a Docker container that builds QR codes and then goes away? Well then,
     
     `qr "YOUR URL OR TEXT" > <filename>.png`
 
-* Full source availabel on [Git Hub](https://github.com/Valien/docker-qr-generator)
+* Full source available on [Git Hub](https://github.com/Valien/docker-qr-generator)
 * Uses Alpine as base image and Python [qrcode 5.3](https://pypi.python.org/pypi/qrcode) for QR generation.
 * Got a suggestion or bug? Submit a pull request or shoot me an email!
