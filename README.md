@@ -6,19 +6,19 @@ Ever want a Docker container that builds QR codes and then goes away? Well then,
 
 ## Initial Features
 
-* Pull a the image down from [Docker Hub](https://hub.docker.com/r/valien/qrcode-generator/)
-* Run the following command to spin up a container and shell into it:
+* Pull a the image down from [Docker Hub](https://hub.docker.com/r/valien/docker-qrcode-generator/)
+* Run the following command to spin up a container to automagically create a QR code for you:
 
-    `docker run -it -v /<YOUR LOCAL VOLUME>:/qr --rm valien/qrcode-generator /bin/sh`
+    `docker run -v /<WHERE YOU WANT TO SAVE YOUR QR FILES/qr:/qr -e QR_TEXT='I LOVE DOCKER!' -e QR_FILE=QRFileName.png --rm valien/docker-qrcode-generator`
+* It should process and save the QR code in your mounted volume, exit, and delete the container.
+* Another option is you can make the container interactive: 
+    
+    '`docker run -it --entrypoint=/bin/sh -v /<WHERE YOU WANT TO SAVE YOUR QR FILES/qr:/qr -e QR_TEXT='I LOVE DOCKER!' -e QR_FILE=QRFileName.png --rm valien/docker-qrcode-generator`
 
-* Once in run the following to generate a QR code:
+    The manually run the QR program: 
     
     `qr "YOUR URL OR TEXT" > <filename>.png`
 
-* You can exit (container will remove itself if you left the `--rm` in the command line) and your QR code will now be on your local system as a .png file. Test it and go on your way!
 * Full source availabel on [Git Hub](https://github.com/Valien/docker-qr-generator)
 * Uses Alpine as base image and Python [qrcode 5.3](https://pypi.python.org/pypi/qrcode) for QR generation.
-
-## To Do
-
-* Add dynamic commands to container so you don't have to terminal into it (i.e. put commands on run line and get a QR code as output)
+* Got a suggestion or bug? Submit a pull request or shoot me an email!
