@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-MAINTAINER Allen Vailliencourt
+MAINTAINER Allen Vailliencourt allen@valien.net
 
 # Update CA certs
 RUN apk --no-cache add  \
@@ -16,13 +16,22 @@ RUN apk --no-cache add \
     python-dev \
     jpeg-dev
 
-# Makes sure zlib can be found
-ENV LIBRARY_PATH=/lib:/usr/lib
+# Makes sure zlib can be found and set variables for QR Text and Filename
+ENV LIBRARY_PATH=/lib:/usr/lib \
+    QR_TEXT="" \
+    QR_FILE=""
 
 # Install Python setuptools
-RUN pip install -U pip setuptools
+RUN pip install -U \
+    pip \
+    setuptools \
+    pillow \
+    qrcode
 
-# Runs the buld of qrcode
-RUN pip install pillow qrcode
-
+# Set the directory to store finished QR codes
 WORKDIR /qr
+
+# Copy command to run to build QR codes
+COPY docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
